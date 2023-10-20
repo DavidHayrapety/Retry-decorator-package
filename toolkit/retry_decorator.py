@@ -1,5 +1,4 @@
-from random import random
-from time import sleep as sleep
+from time import sleep
 
 def retry(exceptions, tries, delay=2, backoff=2):
 
@@ -18,12 +17,3 @@ def retry(exceptions, tries, delay=2, backoff=2):
         return wrapper
     
     return decorator
-
-@retry((Exception,),3)
-def random_num():
-    num = random()
-    if num<0.5:raise Exception('Too small')
-
-    return num
-
-print(random_num())
