@@ -1,20 +1,19 @@
 from random import random
+from time import sleep as sleep
 
 def retry(exceptions, tries, delay=2, backoff=2):
 
     def decorator(func):
 
         def wrapper(*args,**kwargs):
+            nonlocal delay
             for i in range(tries):                
 
                 try :
-                    # func(*args,**kwargs)
-                    # print(f'try number {i+1}')
                     return func(*args,**kwargs)
-
                 except exceptions:
-                    print("error occured")
-                            
+                    sleep(delay)
+                    delay*=backoff    
 
         return wrapper
     
