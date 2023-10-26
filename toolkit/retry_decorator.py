@@ -1,19 +1,30 @@
 from time import sleep
 
+
 def retry(exceptions, tries, delay=2, backoff=2):
 
     def decorator(func):
 
-        def wrapper(*args,**kwargs):
+        def wrapper(*args, **kwargs):
             nonlocal delay
-            for i in range(tries):                
+            count = 1
+            for i in range(tries):
 
-                try :
-                    return func(*args,**kwargs)
+                try:
+                    print(f'Try number {count}')
+                    return func(*args, **kwargs)
                 except exceptions:
-                    sleep(delay)
-                    delay*=backoff    
+                    print(f'Error occured')
+                    if count < tries:
+                        print(f'Wait {delay} seconds')
+                        sleep(delay)
+                        delay *= backoff
+
+                count += 1
+
+            if count < tries:
+                print('Function executed successfully')
 
         return wrapper
-    
+
     return decorator
