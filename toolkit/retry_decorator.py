@@ -1,10 +1,12 @@
 from time import sleep
+from functools import wraps
 
 
 def retry(exceptions, tries, delay=2, backoff=2):
 
     def decorator(func):
 
+        @wraps(func)
         def wrapper(*args, **kwargs):
             nonlocal delay
             count = 1
