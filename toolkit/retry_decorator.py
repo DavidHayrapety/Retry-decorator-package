@@ -2,7 +2,7 @@ from time import sleep
 from functools import wraps
 
 
-def retry(exceptions, tries, delay=2, backoff=2):
+def retry(exceptions, tries, delay=2, backoff=2, logger=None):
 
     def decorator(func):
 
